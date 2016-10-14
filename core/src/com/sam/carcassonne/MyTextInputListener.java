@@ -6,10 +6,12 @@ import java.util.regex.Pattern;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.TextInputListener;
 
+//Class that handles players selection of names, and keeps track of each player's score
 public class MyTextInputListener implements TextInputListener {
 	public static int updatePointTotal = 0;
 	public static String checkBoxName = "";
 	public static int timerDuration = 0;
+	   //Opens a dialog box and allows a player to type in their name
 	   @Override
 	   public void input (String text) {
 		   if(!isANumber(text) && !PlayScreen.playScreenActive && OptionScreen.durationName.equals("")){
@@ -70,11 +72,14 @@ public class MyTextInputListener implements TextInputListener {
 		   }
 	   }
 
+	   //called when the user deletes the dialog box
 	   @Override
 	   public void canceled () {
 		   
 	   }
 	   
+	   //determines of the input that the user gives is a number or not,
+	   //returning true if it is, and false otherwise
 	   public boolean isANumber(String input){
 		try{
 			Integer.parseInt(input);
@@ -85,6 +90,7 @@ public class MyTextInputListener implements TextInputListener {
 		return true;
 		}
 	   
+	   //updates the players' score in the game
 	  public static void updatePoints(Player player){
 		  player.setPoints(updatePointTotal);
 	  }

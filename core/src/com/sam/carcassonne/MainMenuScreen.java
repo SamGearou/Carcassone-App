@@ -20,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+//The main menu screen where players can select one of the following options: New Game,
+//Options, or Statistics
 public class MainMenuScreen implements Screen {
 
 	Stage stage;
@@ -28,9 +30,12 @@ public class MainMenuScreen implements Screen {
 	TextureAtlas atlas;
 	BitmapFont font;
 	Pixmap pixmap;
+	
+	//takes an instance of the game to allow the ability to switch screens
 	public MainMenuScreen(Carcassonne game){
 		this.game = game;
 	}
+	    //draws the stage and all of the actors on the stage
 		public void render(float delta) {
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			stage.act(Gdx.graphics.getDeltaTime());
@@ -40,11 +45,13 @@ public class MainMenuScreen implements Screen {
 			
 		}
 
+		//resizes
 		@Override
 		public void resize(int width, int height) {
 			stage.getViewport().update(width, height, true);
 		}
 
+		//initializes all of the actors 
 		@Override
 		public void show() {
 			stage = new Stage();
@@ -91,41 +98,48 @@ public class MainMenuScreen implements Screen {
 	        table.add(options).width(870).height(380).spaceBottom(10);
 	        table.row();
 	        button.addListener(new ChangeListener() {
+	        	//changes the screen to the Name Screen
 	        	public void changed (ChangeEvent event, Actor actor) {
 	        	game.setScreen(new NameScreen(game));	
 	        	}
 	        });
 	        options.addListener(new ChangeListener(){
+	        	//changes the screen to the Options Screen
 	        	public void changed(ChangeEvent event, Actor actor) {
 	        	game.setScreen(new OptionScreen(game));
 	        	}
 	        });
 	        statistics.addListener(new ChangeListener(){
 
+	        	//changes the screen to the Statistics Screen
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
                  game.setScreen(new Statistics(game));					
 				}
 	        });
 		}
+		//destroys the input processor when the user hides the app
 		@Override
 		public void hide() {
 			 Gdx.input.setInputProcessor(null);
 			
 		}
 
+		//pause
 		@Override
 		public void pause() {
 			// TODO Auto-generated method stub
 			
 		}
 
+		//resume
 		@Override
 		public void resume() {
 			// TODO Auto-generated method stub
 			
 		}
 
+		//disposes of all necessary resources
 		@Override
 		public void dispose() {
 			stage.dispose();

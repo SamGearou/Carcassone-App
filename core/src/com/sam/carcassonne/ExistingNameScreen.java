@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
+//Allows the players to select a name from a drop down list
 public class ExistingNameScreen implements Screen {
 
 	Stage stage;
@@ -37,9 +38,12 @@ public class ExistingNameScreen implements Screen {
 	public static boolean chooseTableOrder = false;
 	
 	public boolean timerSetting = false;
+	
+	//takes in a game object to allow the ability to switch screens
 	public ExistingNameScreen(Carcassonne game){
 		this.game = game;
 	}
+	    //draws the stage and updates the actors
 		public void render(float delta) {
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			stage.act(Gdx.graphics.getDeltaTime());
@@ -49,11 +53,13 @@ public class ExistingNameScreen implements Screen {
 			
 		}
 
+		//resizes
 		@Override
 		public void resize(int width, int height) {
 			stage.getViewport().update(width, height, true);
 		}
 
+		//initializes all the screen objects 
 		@Override
 		public void show() {
 			stage = new Stage();
@@ -74,10 +80,12 @@ public class ExistingNameScreen implements Screen {
 	        // Store the default libgdx font under the name "default".
 	        skin.add("default", new BitmapFont());
 	        
+	        //background image
 	        Image background = new Image(new Texture(Gdx.files.internal("castle.png")));
 	        stage.addActor(background);
 	        background.scaleBy(.3f);
 	        
+	        //creates the drop down select box
 	        SelectBoxStyle style = new SelectBoxStyle();
 	        style.font = font;
 	        style.background = skin.newDrawable("white", Color.GRAY);
@@ -106,6 +114,7 @@ public class ExistingNameScreen implements Screen {
 	        selectBox.setItems(SelectionItems.getItemsArray());
 	        stage.addActor(selectBox);
 	        
+	        //check box containing the existing players' names
 	        CheckBoxStyle = new CheckBoxStyle();
 	        CheckBoxStyle.font = font;
 	        CheckBoxStyle.checkedFontColor = Color.GREEN;
@@ -130,6 +139,8 @@ public class ExistingNameScreen implements Screen {
 	        
 	        selectBox.setBounds(1000, 800, 400, 200);
 	        selectBox.addListener(new ChangeListener(){
+	        	
+	        	//called when a player selects a name from the drop down select box
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
 					//System.out.println(selectBox.getSelected());
@@ -140,6 +151,7 @@ public class ExistingNameScreen implements Screen {
 	        });
 	        back.addListener(new ChangeListener(){
 
+	        	//called when the player touched the back button
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
 				      game.setScreen(new NameScreen(game));
@@ -148,6 +160,7 @@ public class ExistingNameScreen implements Screen {
 	           });
 	        start.addListener(new ChangeListener(){
 
+	        	//Switches screens to the Player Screen
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
 					if(SelectionItems.getSelectedNames().size() > 1){
@@ -165,6 +178,7 @@ public class ExistingNameScreen implements Screen {
 	        });
 	        tableOrder.addListener(new ChangeListener(){
 
+	        	//Method that picks the table order and switches screens to the player screen
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
 					if(SelectionItems.getSelectedNames().size() > 1){
@@ -182,27 +196,32 @@ public class ExistingNameScreen implements Screen {
 				}
 	        });
 		}
+		//returns an instance of the game
 		public Carcassonne getGame(){
 			return game;
 		}
+		//destroys the input processor when the user hides the app
 		@Override
 		public void hide() {
 			 Gdx.input.setInputProcessor(null);
 			
 		}
 
+		//pause
 		@Override
 		public void pause() {
 			// TODO Auto-generated method stub
 			
 		}
 
+		//resume
 		@Override
 		public void resume() {
 			// TODO Auto-generated method stub
 			
 		}
 
+		//disposes of all necessary resources
 		@Override
 		public void dispose() {
 			stage.dispose();

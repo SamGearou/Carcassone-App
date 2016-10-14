@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-
+//Class that tracks game statistics
 public class Statistics implements Screen{
 
 	Stage stage;
@@ -33,9 +33,12 @@ public class Statistics implements Screen{
 	public static boolean chooseTableOrder = false;
 	
 	public boolean timerSetting = false;
+	
+	//passes in an instance of the game to allow the ability to switch screens
 	public Statistics(Carcassonne game){
 		this.game = game;
 	}
+	    //draws all the actors and updates the stage
 		public void render(float delta) {
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			stage.act(Gdx.graphics.getDeltaTime());
@@ -45,11 +48,13 @@ public class Statistics implements Screen{
 			
 		}
 
+		//resizes
 		@Override
 		public void resize(int width, int height) {
 			stage.getViewport().update(width, height, true);
 		}
 
+		//initializes all of the actors and add them to the stage
 		@Override
 		public void show() {
 			stage = new Stage();
@@ -121,33 +126,41 @@ public class Statistics implements Screen{
 	        back.setSize(400,140);
 	        back.addListener(new ChangeListener(){
 
+	        	//sets the screen to the Main Menu Screen
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
 					game.setScreen(new MainMenuScreen(game));
 				}
 	        });
 		}
+		
+		//returns an instance of the game
 		public Carcassonne getGame(){
 			return game;
 		}
+		
+		//destroys the input processor when the user hides the app
 		@Override
 		public void hide() {
 			 Gdx.input.setInputProcessor(null);
 			
 		}
 
+		//pauses
 		@Override
 		public void pause() {
 			// TODO Auto-generated method stub
 			
 		}
 
+		//resumes
 		@Override
 		public void resume() {
 			// TODO Auto-generated method stub
 			
 		}
 
+		//disposes of all the necessary resources
 		@Override
 		public void dispose() {
 			stage.dispose();

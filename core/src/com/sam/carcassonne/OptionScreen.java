@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
+//Allows the players to have an optional timer with a specific duration for each player's turn
 public class OptionScreen implements Screen {
 
 	Stage stage;
@@ -35,9 +36,11 @@ public class OptionScreen implements Screen {
 	
 	public static boolean durationClicked = false;
 	
+	//passes in an instance of the game to allow the ability to switch screens
 	public OptionScreen(Carcassonne game){
 		this.game = game;
 	}
+	//draws the actors and updates the stage
 		public void render(float delta) {
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			stage.act(Gdx.graphics.getDeltaTime());
@@ -47,11 +50,13 @@ public class OptionScreen implements Screen {
 			
 		}
 
+		//resizes 
 		@Override
 		public void resize(int width, int height) {
 			stage.getViewport().update(width, height, true);
 		}
 
+		//initializes all of the actors
 		@Override
 		public void show() {
 			stage = new Stage();
@@ -113,6 +118,7 @@ public class OptionScreen implements Screen {
 	        	}
 	        });
            duration.addListener(new ChangeListener(){
+        	//sets the specified duration of the timer for each turn a player takes   
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				durationClicked = true;
@@ -123,6 +129,7 @@ public class OptionScreen implements Screen {
 			});
            back.addListener(new ChangeListener(){
 
+        	//sets the screen to the Main Menu Screen
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 			      game.setScreen(new MainMenuScreen(game));
@@ -130,27 +137,32 @@ public class OptionScreen implements Screen {
 			}   
            });
 		}
+		//returns true if the timer is on, and false otherwise
 		public boolean timerOnOff(){
 			return timerSetting;
 		}
+		//destroys the input processor when the user hides the app
 		@Override
 		public void hide() {
 			 Gdx.input.setInputProcessor(null);
 			
 		}
 
+		//pauses
 		@Override
 		public void pause() {
 			// TODO Auto-generated method stub
 			
 		}
 
+		//resumes
 		@Override
 		public void resume() {
 			// TODO Auto-generated method stub
 			
 		}
 
+		//disposes of all necessary resources
 		@Override
 		public void dispose() {
 			stage.dispose();

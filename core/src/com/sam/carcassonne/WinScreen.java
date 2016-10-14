@@ -21,7 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-
+//Class that shows who won the game at the end
 public class WinScreen implements Screen {
 
 	Stage stage;
@@ -35,6 +35,7 @@ public class WinScreen implements Screen {
 	public WinScreen(Carcassonne game){
 		this.game = game;
 	}
+	//draws all the actors and updates the stage
 		public void render(float delta) {
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			stage.act(Gdx.graphics.getDeltaTime());
@@ -43,12 +44,14 @@ public class WinScreen implements Screen {
 			//stage.setDebugAll(true); // This is optional, but enables debug lines for tables.
 			
 		}
-
+		
+        //resizes
 		@Override
 		public void resize(int width, int height) {
 			stage.getViewport().update(width, height, true);
 		}
 
+		//initializes all of the actors
 		@Override
 		public void show() {
 			stage = new Stage();
@@ -101,6 +104,7 @@ public class WinScreen implements Screen {
 	        
 	        mainMenu.addListener(new ChangeListener(){
 
+	        	//updates the amount of wins each players has for the Statistics class
 				@Override
 				public void changed(ChangeEvent event, Actor actor) {
 					if(!SaveGameState.getPreferences().contains("Mark")){
@@ -128,6 +132,8 @@ public class WinScreen implements Screen {
 							}
 						}
 					}
+					//resets all of the objects of the game, so upon reentry into the app,
+					//everything is cleared
 					GamePlayers.getGamePlayers().clear();
 					SelectionItems.getItemsArray().clear();
 					PlayScreen.playerCheckBoxes.clear();
@@ -143,29 +149,34 @@ public class WinScreen implements Screen {
 					NameScreen.newName = false;
 					ExistingNameScreen.chooseTableOrder = false;
 					
+					//sets the screen to the main menu screen when this button is pressed
 					game.setScreen(new MainMenuScreen(game));
 				}
 	        });
 
 		}
+		//disposes of the input processor when the user hides this app
 		@Override
 		public void hide() {
 			 Gdx.input.setInputProcessor(null);
 			
 		}
 
+		//pauses
 		@Override
 		public void pause() {
 			// TODO Auto-generated method stub
 			
 		}
 
+		//resumes
 		@Override
 		public void resume() {
 			// TODO Auto-generated method stub
 			
 		}
 
+		//disposes of all necessary resources
 		@Override
 		public void dispose() {
 			stage.dispose();
